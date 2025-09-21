@@ -30,9 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'created_at',
                 'value' => Yii::$app->formatter->asDateTime($model->created_at, 'php:d.m.Y H:m:s'),
             ],
+            // [
+            //     'attribute' => 'user_id',
+            //     'value' => Yii::$app->formatter->asDateTime($model->created_at, 'php:d.m.Y'),
+            // ],
             [
-                'attribute' => 'data_start',
-                'value' => Yii::$app->formatter->asDateTime($model->created_at, 'php:d.m.Y'),
+                'attribute' => 'user_id',
+                'value' => $model->user->fullName,
             ],
             [
                 'attribute' => 'course_id',

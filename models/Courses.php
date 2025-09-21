@@ -53,4 +53,12 @@ class Courses extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Application::class, ['course_id' => 'id']);
     }
+
+    public static function getCourses(): array
+    {
+        return static::find()
+            ->select('name')
+            ->indexBy('id')
+            ->column(); 
+    }
 }

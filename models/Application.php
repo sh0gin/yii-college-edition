@@ -55,13 +55,13 @@ class Application extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => 'Номер',
             'data_start' => 'Дата начала обучения',
-            'user_id' => 'User ID',
-            'course_id' => 'Course ID',
-            'pay_type_id' => 'Pay Type ID',
-            'status_id' => 'Status ID',
-            'created_at' => 'Created At',
+            'user_id' => 'Клиент',
+            'course_id' => 'Наименование курса',
+            'pay_type_id' => 'Способ оплаты',
+            'status_id' => 'Статус заявки',
+            'created_at' => 'Дата создания заявки',
         ];
     }
 

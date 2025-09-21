@@ -11,23 +11,21 @@ use yii\bootstrap5\ActiveForm;
 <div class="application-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'data_start')->textInput() ?>
-
-    <?= $form->field($model, 'user_id')->textInput() ?>
-
-    <?= $form->field($model, 'course_id')->textInput() ?>
-
-    <?= $form->field($model, 'pay_type_id')->textInput() ?>
-
-    <?= $form->field($model, 'status_id')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Отправить', ['class' => 'btn btn-success']) ?>
+    <div class='w-25'>
+        <?= $form->field($model, 'data_start')->textInput(['type' => "date"]) ?>
     </div>
-
-    <?php ActiveForm::end(); ?>
+    
+    <div class='w-50'> 
+        <?= $form->field($model, 'course_id')->dropDownList($courses, ['prompt' => 'Выбирите курс']) ?>
+    </div>        
+    <div class='w-50'>
+        <?= $form->field($model, 'pay_type_id')->dropDownList($payType, ['prompt' => 'Выбирите способ оплаты']) ?>
+    </div>
+        
+        <div class="form-group">
+            <?= Html::submitButton('Отправить', ['class' => 'btn btn-success']) ?>
+        </div>
+        
+        <?php ActiveForm::end(); ?>
 
 </div>

@@ -7,30 +7,28 @@ use app\models\Courses;
 use app\models\Feedback;
 use app\models\PayType;
 use app\models\Status;
+use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\VarDumper;
-use Yii;
 
 /**
- * AccountController implements the CRUD actions for Application model.
+ * Account2Controller implements the CRUD actions for Application model.
  */
-class AccountController extends Controller
+class Account2Controller extends Controller
 {
     /**
      * @inheritDoc
      */
-
-
     public function behaviors()
     {
         return array_merge(
             parent::behaviors(),
             [
                 'verbs' => [
-                    'class' => VerbFilter::class,
+                    'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
                     ],
@@ -39,21 +37,16 @@ class AccountController extends Controller
         );
     }
 
-
     public function beforeAction($action)
     {
-        // your custom code here, if you want the code to run before action filters,
-        // which are triggered on the [[EVENT_BEFORE_ACTION]] event, e.g. PageCache or AccessControl
 
         if (!parent::beforeAction($action)) {
             return false;
         }
 
-        // if (Yii::$app->user->isGuest || Yii::$app->user->identity->isAdmin) {
-        //     return $this->redirect('/');
-        // }
 
-        if (! Yii::$app->user->identity?->isClient) {
+
+        if (!Yii::$app->user->identity?->isClient) {
             return $this->redirect('/');
         }
         // if (Yii::$app->user?->identity->isAdmin) {
@@ -73,17 +66,17 @@ class AccountController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Application::find()->where(['user_id' => Yii::$app->user->id]),
-
+            'query' => Application::find(),
+            /*
             'pagination' => [
-                'pageSize' => 5
+                'pageSize' => 50
             ],
-            // 'sort' => [
-            //     'defaultOrder' => [
-            //         'id' => SORT_DESC,
-            //     ]
-            // ],
-
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ]
+            ],
+            */
         ]);
 
         return $this->render('index', [
@@ -93,7 +86,7 @@ class AccountController extends Controller
 
     /**
      * Displays a single Application model.
-     * @param int $id ID
+     * @param int $id Номер
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -143,12 +136,34 @@ class AccountController extends Controller
         ]);
     }
 
+    /**
+     * Updates an existing Application model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param int $id Номер
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionFeedback($id)
+    {
+        $model = new Feedback();
+        $model->application_id = $id;
+
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Отзыв о курсе успешно добавлена!');
+            return $this->redirect(['view', 'id' => $model->application_id]);
+        }
+
+        return $this->render('Feedback', [
+            'model' => $model,
+        ]);
+    }
+
 
 
     /**
      * Finds the Application model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
+     * @param int $id Номер
      * @return Application the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -159,21 +174,5 @@ class AccountController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    public function actionFeedback($id)
-    {
-        $model = new Feedback();
-        $model->application_id = $id;
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Отзыв о курсе успешно добавлена!');
-
-            return $this->redirect(['view', 'id' => $model->application_id]);
-        }
-
-        return $this->render('Feedback', [
-            'model' => $model,
-        ]);
     }
 }

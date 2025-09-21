@@ -108,4 +108,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->role === 1;
     }
+
+    public function getIsClient()
+    {
+        return !$this->isAdmin;
+    }
 }

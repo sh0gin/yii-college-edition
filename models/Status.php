@@ -53,4 +53,9 @@ class Status extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Application::class, ['status_id' => 'id']);
     }
-}
+
+    public static function getStatusId(string $alias): int 
+    {
+        return static::findOne(['alias' => $alias])->id;
+    }
+ }
