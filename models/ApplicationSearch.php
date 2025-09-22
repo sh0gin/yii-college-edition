@@ -51,7 +51,7 @@ class ApplicationSearch extends Application
                 'pageSize' => 5
             ], 
         ]);
-
+        
         $this->load($params, $formName);
 
         if (!$this->validate()) {

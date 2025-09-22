@@ -14,6 +14,7 @@ use Yii;
  */
 class Courses extends \yii\db\ActiveRecord
 {
+    public $images;
     /**
      * {@inheritdoc}
      */
@@ -30,6 +31,7 @@ class Courses extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['name'], 'string', 'max' => 255],
+            ['images', 'file', 'extensions' => ['png', 'jpg', 'gif'], "maxFiles" => 3]
         ];
     }
 
@@ -41,6 +43,7 @@ class Courses extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'images' => 'Изображения'
         ];
     }
 

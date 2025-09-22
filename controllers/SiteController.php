@@ -69,6 +69,7 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -79,7 +80,7 @@ class SiteController extends Controller
 
             return Yii::$app->user->identity->isClient
                 ? $this->redirect('/account')
-                : $this->goHome('/admin');
+                : $this->redirect('/admin');
         }
 
         $model->password = '';
@@ -95,7 +96,7 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
-
+        
         Yii::$app->user->logout();
         Yii::$app->session->setFlash('success', 'Вы успешно вышли из системы!');
 
