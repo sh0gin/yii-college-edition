@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
@@ -19,7 +20,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Сбросить', ['class' => 'btn btn-outline-secondary']) ?>
+        <?= Html::a('Сбросить', Url::to('index'), ['class' => 'btn btn-outline-secondary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

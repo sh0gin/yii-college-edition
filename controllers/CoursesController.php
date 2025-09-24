@@ -40,6 +40,7 @@ class CoursesController extends Controller
      *
      * @return string
      */
+    
     public function actionIndex()
     {
         $searchModel = new CoursesSearch();
@@ -74,8 +75,11 @@ class CoursesController extends Controller
     {
         $model = new Courses();
         if ($this->request->isPost) {
+
+            $images = UploadedFile::getInstances($model,'images');
+            // VarDumper::dump($images, 10, true); die;
+
             if ($model->load($this->request->post()) && $model->save()) {
-                $images = UploadedFile::getInstances($model,'images');
                 foreach ($images as $item) {
                     $image = new ImageCourse();
                     $image->id_course = $model->id;
@@ -84,10 +88,10 @@ class CoursesController extends Controller
                     $image->save(false);
                     $item->saveAs('../web/image/' . $item->baseName . '.' . $item->extension);
                     
-                    return $this->redirect(['index']);
                 }
+                return $this->redirect(['index']);
             } else {
-                VarDumper::dump($model->errors, 10, true); die;
+                // VarDumper::dump($model->errors, 10, true); die;
             }
         }
 

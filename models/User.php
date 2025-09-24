@@ -37,7 +37,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             [['fullName', 'login', 'password', 'email', 'phone'], 'required'],
-            [['role'], 'integer'],
+            [['role_id'], 'integer'],
             [['fullName', 'login', 'password', 'email', 'phone'], 'string', 'max' => 255],
             [['login'], 'unique'],
         ];
@@ -54,7 +54,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'login' => 'Login',
             'password' => 'Password',
             'email' => 'Email',
-            'role' => 'Role',
+            'role_id' => 'Role',
             'phone' => 'Phone',
             'token' => 'Token',
         ];
@@ -106,7 +106,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 
     public function getIsAdmin()
     {
-        return $this->role === 1;
+        return $this->role_id === 2;
     }
 
     public function getIsClient()

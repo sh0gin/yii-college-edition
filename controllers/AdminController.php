@@ -25,7 +25,7 @@ class AdminController extends Controller
             parent::behaviors(),
             [
                 'verbs' => [
-                    'class' => VerbFilter::className(),
+                    'class' => VerbFilter::class,
                     'actions' => [
                         'delete' => ['POST'],
                     ],
@@ -84,8 +84,8 @@ class AdminController extends Controller
             if ($model->save(false)) {
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
-                VarDumper::dump($model->errors, 10, true);
-                die;
+                // VarDumper::dump($model->errors, 10, true);
+                // die;
             }
         }
 
@@ -128,9 +128,12 @@ class AdminController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-
     public function actionChangeStatus($id, $status) {
         $model = $this->findModel($id);
+
+        // VarDumper::dump($model, 10, true);
+        // VarDumper::dump($id, 10, true);
+        // VarDumper::dump($status, 10, true); die;
 
         if ($this->request->isPost) {
 

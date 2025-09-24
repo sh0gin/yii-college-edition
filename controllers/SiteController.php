@@ -106,6 +106,7 @@ class SiteController extends Controller
     public function actionRegister()
     {
         $model = new RegisterForm();
+        
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->register()) {
                 Yii::$app->session->setFlash("seccuss", "Вы успешно зарегистрировались");

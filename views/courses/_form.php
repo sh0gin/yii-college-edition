@@ -10,10 +10,10 @@ use yii\widgets\ActiveForm;
 
 <div class="courses-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'images')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
+    <?= $form->field($model, 'images[]')->fileInput(['multiple' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -28,7 +28,7 @@ class Account2Controller extends Controller
             parent::behaviors(),
             [
                 'verbs' => [
-                    'class' => VerbFilter::className(),
+                    'class' => VerbFilter::class,
                     'actions' => [
                         'delete' => ['POST'],
                     ],
@@ -120,9 +120,9 @@ class Account2Controller extends Controller
                     Yii::$app->session->setFlash('success', 'Заявка успешно добавлена!');
                     return $this->redirect(['view', 'id' => $model->id]);
                 } else {
-                    VarDumper::dump($model->errors, 10, true);
-                    VarDumper::dump($model->attributes, 10, true);
-                    die;
+                    // VarDumper::dump($model->errors, 10, true);
+                    // VarDumper::dump($model->attributes, 10, true);
+                    // die;
                 }
             }
         } else {

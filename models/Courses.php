@@ -11,10 +11,12 @@ use Yii;
  * @property string $name
  *
  * @property Application[] $applications
+ * @property ImageCourse[] $imageCourses
  */
 class Courses extends \yii\db\ActiveRecord
 {
     public $images;
+
     /**
      * {@inheritdoc}
      */
@@ -32,6 +34,7 @@ class Courses extends \yii\db\ActiveRecord
             [['name'], 'required'],
             [['name'], 'string', 'max' => 255],
             ['images', 'file', 'extensions' => ['png', 'jpg', 'gif'], "maxFiles" => 3]
+
         ];
     }
 
@@ -41,9 +44,9 @@ class Courses extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'images' => 'Изображения'
+            'id' => 'Номер',
+            'name' => 'Имя',
+            'images' => "Изображение"
         ];
     }
 
@@ -57,6 +60,16 @@ class Courses extends \yii\db\ActiveRecord
         return $this->hasMany(Application::class, ['course_id' => 'id']);
     }
 
+    /**
+     * Gets query for [[ImageCourses]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getImageCourses()
+    {
+        return $this->hasMany(ImageCourse::class, ['id_course' => 'id']);
+    }
+
     public static function getCourses(): array
     {
         return static::find()
@@ -64,4 +77,5 @@ class Courses extends \yii\db\ActiveRecord
             ->indexBy('id')
             ->column(); 
     }
+
 }

@@ -43,16 +43,28 @@ class CoursesSearch extends Courses
      */
     public function search($params, $formName = null)
     {
+
         $query = new Query;
 
         // $query = $query->select(["courses.id", 'image', 'name'])->from('courses')->leftJoin('image_course', 'courses.id = image_course.id_course');
         // add conditions that should always apply here
-        $query = Courses::find();
+        $query = Courses::find()
+        ->with('imageCourses')
+        // ->asArray()
+        // ->all()
+        
+        ;
+
+        // VarDumper::dump($query, 10, true); die;
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 5,
+            ]
         ]);
+
         $this->load($params, $formName);
-        VarDumper::dump($dataProvider->models,10,true); die;
+        // VarDumper::dump($dataProvider->models,10,true); die;
         
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
