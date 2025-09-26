@@ -1,29 +1,31 @@
 <?php
 
 use app\models\Application;
+use app\models\Courses;
+use app\models\PayType;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\helpers\VarDumper;
+use yii\widgets\Pjax;
 
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Личный кабинет';
+$this->title = 'Панель администратора';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="application-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Создать заявку', ['create'], ['class' => 'btn btn-outline-success']) ?>
-    </p>
-
+<?php Pjax::begin() ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'pager' => [
             'class' => LinkPager::class,
         ],
@@ -45,12 +47,12 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'course_id',
                 'value' => fn($model) => $model->course->name,
-                'filter' => ['1' => "курс1", '2' => "курс2"]
+                'filter' => Courses::getCourses(),
 
             ],
             [
                 'attribute' => 'pay_type_id',
-                'value' => fn($model) => $model->payType->title,
+                'value' => PayType::getPayType(),
             ],
             [
                 'attribute' => 'status_id',
@@ -76,5 +78,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-
+<?php Pjax::end() ?>
 </div>

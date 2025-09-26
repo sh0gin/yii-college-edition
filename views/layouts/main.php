@@ -52,10 +52,20 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             ? ['label' => 'Личный кабинет', 'url' => ['/account']]
             : "",
 
+            Yii::$app->user->identity?->isClient
+            ? ['label' => 'Личный кабинет 2', 'url' => ['/account2']]
+            : "",
+
             Yii::$app->user->identity?->isAdmin
             ? ['label' => 'Панель администратора', 'url' => ['/admin']]
             : ""
             ,
+
+            Yii::$app->user->identity?->isAdmin
+            ? ['label' => 'Панель администратора 2', 'url' => ['/admin2']]
+            : ""
+            ,
+
             Yii::$app->user->isGuest
                 ? ['label' => 'Вход', 'url' => ['/site/login']]
                 : '<li class="nav-item">'

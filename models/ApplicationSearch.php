@@ -35,11 +35,10 @@ class ApplicationSearch extends Application
      * Creates data provider instance with search query applied
      *
      * @param array $params
-     * @param string|null $formName Form name to be used into `->load()` method.
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $formName = null)
+    public function search($params)
     {
         $query = Application::find();
 
@@ -47,12 +46,9 @@ class ApplicationSearch extends Application
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => [
-                'pageSize' => 5
-            ], 
         ]);
-        
-        $this->load($params, $formName);
+
+        $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails

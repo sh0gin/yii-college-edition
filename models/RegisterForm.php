@@ -37,7 +37,7 @@ class RegisterForm extends Model
             [['fullName', 'login', 'password', 'email', 'phone'], 'string', 'max' => 255],
             [['password'], 'string', "min" => 8],
             [['login'], 'match', 'pattern' => '/^[a-z\d]+$/i', "message" => 'Логин может содержать только буквы и цифры'],
-            [['fullName'], 'match', 'pattern' => '/[а-яеё]/iu', "message" => 'ФИО может быть написано только кириллицей'],
+            [['fullName'], 'match', 'pattern' => '/^[а-яе]+\s[а-яе]+\s([a-яё\s]+)$/iu', "message" => 'ФИО может быть написано только кириллицей и не менее двух пробелов'],
             [['email'], 'email'],
             [['login'], 'unique', 'targetClass' => User::class],
             ['phone', 'match', 'pattern' => '/^8\([\d]{3}\)[\d]{3}(\-[\d]{2}){2}$/', "message" => 'Телефон (формат: 8(XXX)XXX-XX-XX)']

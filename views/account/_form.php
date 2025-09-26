@@ -10,9 +10,15 @@ use yii\bootstrap5\ActiveForm;
 
 <div class="application-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'id' => 'form-order',
+
+    ]); ?>
     <div class='w-25'>
-        <?= $form->field($model, 'data_start')->textInput(['type' => "date"]) ?>
+        <?= $form->field($model, 'data_start',  ['enableAjaxValidation' => true])->widget(\yii\widgets\MaskedInput::class, [
+                'mask' => '99.99.9999',
+            ])  ?>
+        <?= $form->field($model, 'time_order', ['enableAjaxValidation' => true])->textInput(['type' => "time", /*'min' => '09:00', 'max' => '18:00' */]) ?>
     </div>
     
     <div class='w-50'> 
